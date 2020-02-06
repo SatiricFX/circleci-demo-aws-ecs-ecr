@@ -3,10 +3,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
   aws-ecs: circleci/aws-ecs@0.0.10
 jobs:
-  test:
-    branches:
-      only:
-        - develop
+  plan:
     docker:
       - image: hashicorp/terraform:latest
     steps:
@@ -17,10 +14,7 @@ jobs:
       - run:
           name: Terraform plan
           command: 'cd terraform_setup; terraform plan -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION}'
-  build:
-    branches:
-      only:
-        - master
+  apply:
     docker:
       - image: hashicorp/terraform:latest
     steps:
@@ -33,10 +27,9 @@ jobs:
           command: 'cd terraform_setup; terraform plan -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION}'
 workflows:
   version: 2.1
-  build_and_test:
+  plan_and_apply:
     jobs:
-      - test
-      - build
+      - plan
 
 
       
