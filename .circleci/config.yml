@@ -10,7 +10,7 @@ jobs:
       - checkout
       - run:
           name: Terraform init
-          command: 'cd terraform_setup; terraform plan'
+          command: 'cd terraform_setup; terraform init'
 workflows:
   version: 2.1
   build_and_test:
