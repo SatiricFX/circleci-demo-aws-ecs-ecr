@@ -9,8 +9,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Example
-          command: 'ls'
+          name: Terraform init
+          command: 'cd terraform_setup; terraform plan'
 workflows:
   version: 2.1
   build_and_test:
