@@ -8,6 +8,9 @@ jobs:
       - image: hashicorp/terraform:latest
     steps:
       - checkout
+      - run:
+          name: Example
+          command: 'ls'
 workflows:
   version: 2.1
   build_and_test:
