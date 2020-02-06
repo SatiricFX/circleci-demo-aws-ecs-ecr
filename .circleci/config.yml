@@ -3,7 +3,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@0.0.2
   aws-ecs: circleci/aws-ecs@0.0.10
 jobs:
-  plan:
+  test:
     branches:
       only:
         - develop
@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Terraform plan
           command: 'cd terraform_setup; terraform plan -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION}'
-  apply:
+  build:
     branches:
       only:
         - master
@@ -33,10 +33,10 @@ jobs:
           command: 'cd terraform_setup; terraform plan -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION}'
 workflows:
   version: 2.1
-  apply_and_plan:
+  build_and_test:
     jobs:
-      - plan
-      - apply
+      - test
+      - build
 
 
       
