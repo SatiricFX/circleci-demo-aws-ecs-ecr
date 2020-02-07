@@ -7,3 +7,9 @@ variable "aws_region" {
 variable "aws_resource_prefix" {
   description = "Prefix to be used in the naming of some of the created AWS resources e.g. demo-webapp"
 }
+variable "aws_vpc_cidr_block" {
+  description = "VPC CIDR Block"
+}
+variable "aws_vpc_public_sn_cidr_block" {
+  description = "VPC Public SN CIDR Block"
+}
