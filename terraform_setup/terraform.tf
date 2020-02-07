@@ -11,7 +11,7 @@ locals {
   aws_ecs_load_balancer     = "${var.aws_resource_prefix}-ecs-load-balancer"
   aws_ecs_target_group      = "${var.aws_resource_prefix}-ecs-target-group"
   aws_public_security_group = "${var.aws_resource_prefix}-public-security-group"
-  
+
   # The name of the task definition
   aws_ecs_task_definition_name = "${var.aws_resource_prefix}-svc-task-definition"
   # The name of the CloudFormation stack to be created for the VPC and related resources
@@ -29,7 +29,7 @@ locals {
 }
 
 resource "aws_vpc" "cwvlug_circleci_vpc" {
-  cidr_block = "${local.aws_vpc_cidr_block}"
+  cidr_block = "${var.aws_vpc_cidr_block}"
   tags {
     Name ="CWVLug_CircleCI_VPC"
   }
@@ -44,7 +44,7 @@ resource "aws_internet_gateway" "cwvlug_circleci_ig" {
 
 resource "aws_subnet" "public_sn_01" {
   vpc_id      = "${aws_vpc.cwvlug_circleci_vpc.id}"
-  cidr_block  = "${local.aws_public_cidr_block}"
+  cidr_block  = "${var.aws_vpc_public_sn_cidr_block}"
   availability_zone = "${data.aws_availability_zones.available.names[0]}"
   tags {
     Name = "CWVLug_CircleCI_Public_SN"

@@ -7,3 +7,5 @@
 #aws_region     = "${AWS_DEFAULT_REGION}"
 # Prefix to be used in the naming of some of the created AWS resources. Example value: demo-webapp
 aws_resource_prefix = "cwvlug-circleci-demo"
+aws_vpc_cidr_block           = "10.0.0.0/16
+aws_vpc_public_sn_cidr_block = "10.0.1.0/24"
