@@ -181,7 +181,7 @@ resource "aws_alb" "ecs-load-balancer" {
   subnets         = ["${aws_subnet.public_sn_01.id}"]
 
   tags = {
-    Name = "${local.aws_ecs-load-balancer}"
+    Name = "${local.aws_ecs_load_balancer}"
   }
 }
 
