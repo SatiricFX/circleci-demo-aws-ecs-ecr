@@ -18,21 +18,6 @@ locals {
   aws_ecs_instance_role     = "${var.aws_resource_prefix}-ecs-instance-role"
   aws_public_security_group = "${var.aws_resource_prefix}-public-security-group"
 
-  # The name of the task definition
-  aws_ecs_task_definition_name = "${var.aws_resource_prefix}-svc-task-definition"
-  # The name of the CloudFormation stack to be created for the VPC and related resources
-  aws_vpc_stack_name = "${var.aws_resource_prefix}-vpc-stack"
-  # The name of the CloudFormation stack to be created for the ECS service and related resources
-  aws_ecs_service_stack_name = "${var.aws_resource_prefix}-svc-stack"
-  # The name of the ECR repository to be created
-  aws_ecr_repository_name = "${var.aws_resource_prefix}"
-  # The name of the ECS cluster to be created
-  aws_ecs_cluster_name = "${var.aws_resource_prefix}-cluster"
-  # The name of the ECS service to be created
-  aws_ecs_service_name = "${var.aws_resource_prefix}-service"
-  # The name of the execution role to be created
-  aws_ecs_execution_role_name = "${var.aws_resource_prefix}-ecs-execution-role"
-}
 
 resource "aws_vpc" "cwvlug_circleci_vpc" {
   cidr_block = "${var.aws_vpc_cidr_block}"
@@ -222,4 +207,28 @@ resource "aws_alb_listener" "alb-listener" {
         target_group_arn = "${aws_alb_target_group.ecs-target-group.arn}"
         type             = "forward"
     }
+}
+
+resource "aws_launch_configuration" "ecs-launch-configuration" {
+    name                        = "ecs-launch-configuration"
+    image_id                    = "ami-0f81924348bcd01a1"
+    instance_type               = "t2.micro"
+    iam_instance_profile        = "${aws_iam_instance_profile.ecs-instance-profile.id}"
+
+    root_block_device {
+      volume_type = "standard"
+      volume_size = 30
+      delete_on_termination = true
+    }
+
+    lifecycle {
+      create_before_destroy = true
+    }
+
+    security_groups             = ["${aws_security_group.public_sg.id}"]
+    associate_public_ip_address = "true"
+    user_data                   = <<EOF
+                                  #!/bin/bash
+                                  echo ECS_CLUSTER=${var.ecs_cluster} >> /etc/ecs/ecs.config
+                                  EOF
 }
