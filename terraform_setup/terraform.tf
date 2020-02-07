@@ -27,7 +27,7 @@ locals {
 }
 
 resource "aws_iam_role" "ecs-service-role" {
-  name                  = ${local.aws_ecs_service_role}
+  name                  = "${local.aws_ecs_service_role}"
   path                  = "/"
   assume_role_policy    = "${data.aws_iam_policy_document.ecs-service-policy.json}"
 }
