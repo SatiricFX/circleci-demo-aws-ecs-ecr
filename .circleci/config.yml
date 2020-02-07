@@ -29,7 +29,17 @@ workflows:
   version: 2.1
   plan_and_apply:
     jobs:
-      - plan
+      - plan:
+          filters:
+            branches:
+              ignore:
+                - develop
+      - apply:
+          filters:
+            branches:
+              ignore:
+                - master
+
 
 
       
