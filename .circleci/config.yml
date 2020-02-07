@@ -36,11 +36,11 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-        account-url: "123456789.dkr.ecr.us-east-1.amazonaws.com"
-        repo: "cwvlug-circleci-demo"
-        region: "us-east-1"
-        tag: "latest"
-        create-repo: "true"
+          account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          region: "${AWS_DEFAULT_REGION}"
+          tag: "latest"
+          create-repo: "true"
   plan_and_apply:
     jobs:
       - plan:
