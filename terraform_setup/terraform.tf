@@ -38,7 +38,7 @@ resource "aws_internet_gateway" "cwvlug_circleci_ig" {
 
 resource "aws_subnet" "public_sn_01" {
   vpc_id      = "${aws_vpc.cwvlug_circleci_vpc.id}"
-  cidr_block  = "${var.aws_vpc_public_sn_cidr_block}"
+  cidr_block  = "${var.aws_vpc_public_sn_01_cidr_block}"
   
   tags = {
     Name = "CWVLug_CircleCI_Public_SN"
@@ -65,7 +65,7 @@ resource "aws_route_table_association" "public_sn_rt_01_assn" {
 
 resource "aws_subnet" "public_sn_02" {
   vpc_id      = "${aws_vpc.cwvlug_circleci_vpc.id}"
-  cidr_block  = "${var.aws_vpc_public_sn_cidr_block}"
+  cidr_block  = "${var.aws_vpc_public_sn_02_cidr_block}"
   
   tags = {
     Name = "CWVLug_CircleCI_Public_SN"
@@ -124,7 +124,7 @@ resource "aws_security_group" "public_sg" {
     to_port = 0
     protocol = "tcp"
     cidr_blocks = [
-      "${var.aws_vpc_public_sn_cidr_block}"]
+      "${var.aws_vpc_public_sn_01_cidr_block}", "${var.aws_vpc_public_sn_02_cidr_block}"]
   }
 
   egress {
