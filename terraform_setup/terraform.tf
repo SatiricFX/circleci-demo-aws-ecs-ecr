@@ -179,7 +179,7 @@ resource "aws_alb" "ecs-load-balancer" {
   subnets         = ["${aws_subnet.public_sn_01.id}"]
 
   tags = {
-    Name = "${local.aws_ecs_load_balancer}"
+    Name = "ecs_load_balancer"
   }
 }
 
@@ -201,7 +201,7 @@ resource "aws_alb_target_group" "ecs-target-group" {
     }
 
     tags = {
-      Name = "${local.aws_ecs_target_group}"
+      Name = "ecs_target_group"
     }
 }
 
