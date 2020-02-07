@@ -63,6 +63,33 @@ resource "aws_route_table_association" "public_sn_rt_01_assn" {
   route_table_id = "${aws_route_table.public_sn_rt_01.id}"
 }
 
+resource "aws_subnet" "public_sn_02" {
+  vpc_id      = "${aws_vpc.cwvlug_circleci_vpc.id}"
+  cidr_block  = "${var.aws_vpc_public_sn_cidr_block}"
+  
+  tags = {
+    Name = "CWVLug_CircleCI_Public_SN"
+  }
+}
+
+resource "aws_route_table" "public_sn_rt_02" {
+  vpc_id = "${aws_vpc.cwvlug_circleci_vpc.id}"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.cwvlug_circleci_ig.id}"
+  }
+  
+  tags = {
+    Name = "CWVLug_CircleCI_Public_SN_RT"
+  }
+}
+
+# Associate the routing table to public subnet 2
+resource "aws_route_table_association" "public_sn_rt_02_assn" {
+  subnet_id = "${aws_subnet.public_sn_02.id}"
+  route_table_id = "${aws_route_table.public_sn_rt_02.id}"
+}
+
 resource "aws_security_group" "public_sg" {
   name = "${local.aws_public_security_group}"
   description = "Public access security group"
@@ -170,7 +197,7 @@ resource "aws_iam_instance_profile" "ecs-instance-profile" {
 resource "aws_alb" "ecs-load-balancer" {
   name            = "ecs-load-balancer"
   security_groups = ["${aws_security_group.public_sg.id}"]
-  subnets         = ["${aws_subnet.public_sn_01.id}"]
+  subnets         = ["${aws_subnet.public_sn_01.id}", "${aws_subnet.public_sn_02.id}"]
 
   tags = {
     Name = "ecs_load_balancer"
