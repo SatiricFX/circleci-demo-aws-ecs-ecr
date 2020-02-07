@@ -33,14 +33,16 @@ jobs:
           command: 'cd terraform_setup; terraform destroy -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION} -auto-approve'
 workflows:
   version: 2.1
-  plan_and_apply:
+  build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-        account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
-        repo: "${AWS_RESOURCE_NAME_PREFIX}"
-        region: "${AWS_DEFAULT_REGION}"
+        account-url: "123456789.dkr.ecr.us-east-1.amazonaws.com"
+        repo: "cwvlug-circleci-demo"
+        region: "us-east-1"
         tag: "latest"
         create-repo: "true"
+  plan_and_apply:
+    jobs:
       - plan:
           filters:
             branches:
