@@ -44,6 +44,8 @@ workflows:
   plan_and_apply:
     jobs:
       - plan:
+          requires: 
+              - aws-ecr/build-and-push-image
           filters:
             branches:
               only:
