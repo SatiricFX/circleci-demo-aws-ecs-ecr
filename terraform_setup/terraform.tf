@@ -47,7 +47,6 @@ resource "aws_internet_gateway" "cwvlug_circleci_ig" {
 resource "aws_subnet" "public_sn_01" {
   vpc_id      = "${aws_vpc.cwvlug_circleci_vpc.id}"
   cidr_block  = "${var.aws_vpc_public_sn_cidr_block}"
-  availability_zone = "${data.aws_availability_zones.available.names[0]}"
   
   tags = {
     Name = "CWVLug_CircleCI_Public_SN"
@@ -106,7 +105,7 @@ resource "aws_security_group" "public_sg" {
     to_port = 0
     protocol = "tcp"
     cidr_blocks = [
-      "${var.public_01_cidr}"]
+      "${var.aws_vpc_public_sn_cidr_block}"]
   }
 
   egress {
@@ -203,7 +202,7 @@ resource "aws_alb_target_group" "ecs-target-group" {
         timeout             = "5"
     }
 
-    tags {
+    tags = {
       Name = "${local.aws_ecs_target_group}"
     }
 }
