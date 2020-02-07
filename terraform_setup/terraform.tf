@@ -17,7 +17,7 @@ locals {
   aws_ecs_service_role      = "${var.aws_resource_prefix}-ecs-service-role"
   aws_ecs_instance_role     = "${var.aws_resource_prefix}-ecs-instance-role"
   aws_public_security_group = "${var.aws_resource_prefix}-public-security-group"
-
+}
 
 resource "aws_vpc" "cwvlug_circleci_vpc" {
   cidr_block = "${var.aws_vpc_cidr_block}"
