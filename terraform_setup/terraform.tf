@@ -124,7 +124,7 @@ resource "aws_security_group" "public_sg" {
     to_port = 0
     protocol = "tcp"
     cidr_blocks = [
-      "${var.aws_vpc_public_sn_cidr_block}"]
+      "${var.aws_vpc_public_sn_01_cidr_block}", "${var.aws_vpc_public_sn_02_cidr_block}"]
   }
 
   egress {
