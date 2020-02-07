@@ -24,13 +24,13 @@ jobs:
           command: 'cd terraform_setup; terraform init'
       - run:
           name: Terraform plan
-          command: 'cd terraform_setup; terraform plan -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION}'
+          command: 'cd terraform_setup; terraform plan -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION} -var aws_account_id=${AWS_ACCOUNT_ID}'
       - run:
           name: Terraform apply
-          command: 'cd terraform_setup; terraform apply -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION} -auto-approve'
+          command: 'cd terraform_setup; terraform apply -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION} -var aws_account_id=${AWS_ACCOUNT_ID} -auto-approve'
       - run:
           name: Terraform destroy
-          command: 'cd terraform_setup; terraform destroy -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION} -auto-approve'
+          command: 'cd terraform_setup; terraform destroy -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION} -var aws_account_id=${AWS_ACCOUNT_ID} -auto-approve'
 workflows:
   version: 2.1
   build_and_apply:
