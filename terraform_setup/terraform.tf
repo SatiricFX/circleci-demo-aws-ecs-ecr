@@ -269,6 +269,10 @@ resource "aws_ecs_cluster" "ecs-cluster" {
   name = "${local.aws_ecs_cluster_name}"
 }
 
+data "aws_ecs_task_definition" "ecs_task_definition" {
+  task_definition = "${aws_ecs_task_definition.ecs_task_definition.family}"
+}
+
 resource "aws_ecs_task_definition" "ecs_task_definition" {
   family        = "cwvlug_circleci_demo"
   container_definitions = <<DEFINITION
