@@ -285,7 +285,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
         "hostPort": 80
       }
     ]
-  },
+  }
 ]
 DEFINITION
 }
