@@ -180,7 +180,7 @@ resource "aws_alb" "ecs-load-balancer" {
   security_groups = ["${aws_security_group.public_sg.id}"]
   subnets         = ["${aws_subnet.public_sn_01.id}"]
 
-  tags {
+  tags = {
     Name = "${local.aws_ecs-load-balancer}"
   }
 }
