@@ -5,6 +5,14 @@ provider "aws" {
   version = "~> 2.7"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "cwvlug-circleci-demo-tf-state"
+    key    = "key"
+    region = "us-east-1"
+  }
+}
+
 locals {
   aws_ecs_service_role      = "${var.aws_resource_prefix}-ecs-service-role"
   aws_ecs_instance_role     = "${var.aws_resource_prefix}-ecs-instance-role"
