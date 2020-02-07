@@ -32,12 +32,12 @@ workflows:
       - plan:
           filters:
             branches:
-              ignore:
+              only:
                 - develop
       - apply:
           filters:
             branches:
-              ignore:
+              only:
                 - master
 
 
