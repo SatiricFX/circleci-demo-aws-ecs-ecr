@@ -8,8 +8,6 @@ provider "aws" {
 locals {
   aws_ecs_service_role      = "${var.aws_resource_prefix}-ecs-service-role"
   aws_ecs_instance_role     = "${var.aws_resource_prefix}-ecs-instance-role"
-  aws_ecs_load_balancer     = "${var.aws_resource_prefix}-ecs-load-balancer"
-  aws_ecs_target_group      = "${var.aws_resource_prefix}-ecs-target-group"
   aws_public_security_group = "${var.aws_resource_prefix}-public-security-group"
 
   # The name of the task definition
@@ -176,7 +174,7 @@ resource "aws_iam_instance_profile" "ecs-instance-profile" {
 }
 
 resource "aws_alb" "ecs-load-balancer" {
-  name            = "${local.aws_ecs_load_balancer}"
+  name            = "ecs_load_balancer"
   security_groups = ["${aws_security_group.public_sg.id}"]
   subnets         = ["${aws_subnet.public_sn_01.id}"]
 
@@ -186,7 +184,7 @@ resource "aws_alb" "ecs-load-balancer" {
 }
 
 resource "aws_alb_target_group" "ecs-target-group" {
-    name                = "${local.aws_ecs_target_group}"
+    name                = "ecs_target_group"
     port                = "80"
     protocol            = "HTTP"
     vpc_id              = "${aws_vpc.cwvlug_circleci_vpc.id}"
