@@ -10,6 +10,9 @@ variable "aws_resource_prefix" {
 variable "aws_vpc_cidr_block" {
   description = "VPC CIDR Block"
 }
-variable "aws_vpc_public_sn_cidr_block" {
+variable "aws_vpc_public_sn_01_cidr_block" {
+  description = "VPC Public SN CIDR Block"
+}
+variable "aws_vpc_public_sn_02_cidr_block" {
   description = "VPC Public SN CIDR Block"
 }
