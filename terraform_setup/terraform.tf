@@ -303,4 +303,3 @@ resource "aws_ecs_service" "ecs-service" {
     	container_name    = "cwvlug_circleci_demo"
 	}
 }
-}
