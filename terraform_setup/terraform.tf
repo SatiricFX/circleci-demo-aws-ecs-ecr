@@ -30,6 +30,7 @@ locals {
 
 resource "aws_vpc" "cwvlug_circleci_vpc" {
   cidr_block = "${var.aws_vpc_cidr_block}"
+
   tags {
     Name ="CWVLug_CircleCI_VPC"
   }
@@ -37,6 +38,7 @@ resource "aws_vpc" "cwvlug_circleci_vpc" {
 
 resource "aws_internet_gateway" "cwvlug_circleci_ig" {
   vpc_id = "${aws_vpc.cwvlug_circleci_vpc.id}"
+
   tags {
     Name = "CWVLug_CircleCI_IG"
   }
@@ -46,6 +48,7 @@ resource "aws_subnet" "public_sn_01" {
   vpc_id      = "${aws_vpc.cwvlug_circleci_vpc.id}"
   cidr_block  = "${var.aws_vpc_public_sn_cidr_block}"
   availability_zone = "${data.aws_availability_zones.available.names[0]}"
+  
   tags {
     Name = "CWVLug_CircleCI_Public_SN"
   }
@@ -57,6 +60,7 @@ resource "aws_route_table" "public_sn_rt_01" {
     cidr_block = "0.0.0.0/0"
     gateway_id = "${aws_internet_gateway.cwvlug_circleci_ig.id}"
   }
+  
   tags {
     Name = "CWVLug_CircleCI_Public_SN_RT"
   }
