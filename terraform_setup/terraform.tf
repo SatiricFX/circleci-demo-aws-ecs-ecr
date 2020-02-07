@@ -294,7 +294,7 @@ resource "aws_ecs_service" "ecs-service" {
   name            = "ecs-service"
   iam_role        = "${aws_iam_role.ecs-service-role.name}"
   cluster         = "${aws_ecs_cluster.ecs-cluster.id}"
-  	task_definition = "${aws_ecs_task_definition.cwvlug_circleci_demo.family}:${max("${aws_ecs_task_definition.cwvlug_circleci_demo.revision}", "${data.aws_ecs_task_definition.cwvlug_circleci_demo.revision}")}"
+  	task_definition = "${aws_ecs_task_definition.ecs_task_definition.family}:${max("${aws_ecs_task_definition.ecs_task_definition.revision}", "${data.aws_ecs_task_definition.ecs_task_definition.revision}")}"
   	desired_count   = 1
 
   	load_balancer {
