@@ -6,10 +6,12 @@ provider "aws" {
 }
 
 locals {
-  aws_ecs_service_role  = "${var.aws_resource_prefix}-ecs-service-role"
-  aws_ecs_instance_role = "${var.aws_resource_prefix}-ecs-instance-role"
-  aws_ecs_load_balancer = "${var.aws_resource_prefix}-ecs-load-balancer"
-  aws_ecs_target_group  = "${var.aws_resource_prefix}-ecs-target-group"
+  aws_ecs_service_role      = "${var.aws_resource_prefix}-ecs-service-role"
+  aws_ecs_instance_role     = "${var.aws_resource_prefix}-ecs-instance-role"
+  aws_ecs_load_balancer     = "${var.aws_resource_prefix}-ecs-load-balancer"
+  aws_ecs_target_group      = "${var.aws_resource_prefix}-ecs-target-group"
+  aws_public_security_group = "${var.aws_resource_prefix}-public-security-group"
+  
   # The name of the task definition
   aws_ecs_task_definition_name = "${var.aws_resource_prefix}-svc-task-definition"
   # The name of the CloudFormation stack to be created for the VPC and related resources
@@ -24,6 +26,97 @@ locals {
   aws_ecs_service_name = "${var.aws_resource_prefix}-service"
   # The name of the execution role to be created
   aws_ecs_execution_role_name = "${var.aws_resource_prefix}-ecs-execution-role"
+}
+
+resource "aws_vpc" "cwvlug_circleci_vpc" {
+  cidr_block = "${local.aws_vpc_cidr_block}"
+  tags {
+    Name ="CWVLug_CircleCI_VPC"
+  }
+}
+
+resource "aws_internet_gateway" "cwvlug_circleci_ig" {
+  vpc_id = "${aws_vpc.cwvlug_circleci_vpc.id}"
+  tags {
+    Name = "CWVLug_CircleCI_IG"
+  }
+}
+
+resource "aws_subnet" "public_sn_01" {
+  vpc_id      = "${aws_vpc.cwvlug_circleci_vpc.id}"
+  cidr_block  = "${local.aws_public_cidr_block}"
+  availability_zone = "${data.aws_availability_zones.available.names[0]}"
+  tags {
+    Name = "CWVLug_CircleCI_Public_SN"
+  }
+}
+
+resource "aws_route_table" "public_sn_rt_01" {
+  vpc_id = "${aws_vpc.cwvlug_circleci_vpc.id}"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.cwvlug_circleci_ig.id}"
+  }
+  tags {
+    Name = "CWVLug_CircleCI_Public_SN_RT"
+  }
+}
+
+# Associate the routing table to public subnet 1
+resource "aws_route_table_association" "public_sn_rt_01_assn" {
+  subnet_id = "${aws_subnet.public_sn_01.id}"
+  route_table_id = "${aws_route_table.public_sn_rt_01.id}"
+}
+
+resource "aws_security_group" "public_sg" {
+  name = "${local.aws_public_security_group}"
+  description = "Public access security group"
+  vpc_id = "${aws_vpc.cwvlug_circleci_vpc.id}"
+
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = [
+      "0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 80
+    to_port = 80
+    protocol = "tcp"
+    cidr_blocks = [
+      "0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = [
+      "0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port = 0
+    to_port = 0
+    protocol = "tcp"
+    cidr_blocks = [
+      "${var.public_01_cidr}"]
+  }
+
+  egress {
+    # allow all traffic to private SN
+    from_port = "0"
+    to_port = "0"
+    protocol = "-1"
+    cidr_blocks = [
+      "0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "public_sg"
+  }
 }
 
 resource "aws_iam_role" "ecs-service-role" {
@@ -81,8 +174,8 @@ resource "aws_iam_instance_profile" "ecs-instance-profile" {
 
 resource "aws_alb" "ecs-load-balancer" {
   name            = "${local.aws_ecs_load_balancer}"
-  security_groups = ["${aws_security_group.test_public_sg.id}"]
-  subnets         = ["${aws_subnet.test_public_sn_01.id}"]
+  security_groups = ["${aws_security_group.public_sg.id}"]
+  subnets         = ["${aws_subnet.public_sn_01.id}"]
 
   tags {
     Name = "${local.aws_ecs-load-balancer}"
@@ -93,7 +186,7 @@ resource "aws_alb_target_group" "ecs-target-group" {
     name                = "${local.aws_ecs_target_group}"
     port                = "80"
     protocol            = "HTTP"
-    vpc_id              = "${aws_vpc.test_vpc.id}"
+    vpc_id              = "${aws_vpc.cwvlug_circleci_vpc.id}"
 
     health_check {
         healthy_threshold   = "5"
