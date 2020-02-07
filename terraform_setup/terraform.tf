@@ -264,3 +264,28 @@ resource "aws_launch_configuration" "ecs-launch-configuration" {
                                   echo ECS_CLUSTER=${local.aws_ecs_cluster_name} >> /etc/ecs/ecs.config
                                   EOF
 }
+
+resource "aws_ecs_cluster" "ecs-cluster" {
+  name = "${local.aws_ecs_cluster_name}"
+}
+
+resource "aws_ecs_task_definition" "ecs_task_definition" {
+  family        = "cwvlug_circleci_demo"
+  container_definitions = <<DEFINITION
+[
+  {
+    "name": "cwvlug_circleci_demo",
+    "image": "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/cwvlug-circleci-demo:latest",
+    "essential": true,
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80
+      }
+    ],
+    "memory": 500,
+    "cpu": 10
+  },
+]
+DEFINITION
+}
