@@ -17,6 +17,7 @@ locals {
   aws_ecs_service_role      = "${var.aws_resource_prefix}-ecs-service-role"
   aws_ecs_instance_role     = "${var.aws_resource_prefix}-ecs-instance-role"
   aws_public_security_group = "${var.aws_resource_prefix}-public-security-group"
+  aws_ecs_cluster_name      = "${var.aws_resource_prefix}-ecs-cluster-name"
 }
 
 resource "aws_vpc" "cwvlug_circleci_vpc" {
@@ -229,6 +230,6 @@ resource "aws_launch_configuration" "ecs-launch-configuration" {
     associate_public_ip_address = "true"
     user_data                   = <<EOF
                                   #!/bin/bash
-                                  echo ECS_CLUSTER=${var.ecs_cluster} >> /etc/ecs/ecs.config
+                                  echo ECS_CLUSTER=${local.aws_ecs_cluster_name} >> /etc/ecs/ecs.config
                                   EOF
 }
