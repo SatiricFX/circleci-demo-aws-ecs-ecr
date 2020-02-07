@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-ecr: circleci/aws-ecr@0.0.2
+  aws-ecr: circleci/aws-ecr@6.7.0
   aws-ecs: circleci/aws-ecs@0.0.10
 jobs:
   plan:
@@ -33,9 +33,9 @@ jobs:
           command: 'cd terraform_setup; terraform destroy -var aws_access_key=${AWS_ACCESS_KEY_ID} -var aws_secret_key=${AWS_SECRET_ACCESS_KEY} -var aws_region=${AWS_DEFAULT_REGION} -auto-approve'
 workflows:
   version: 2.1
-  build_and_push:
+  build_and_push_image:
     jobs:
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
         account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
         repo: "${AWS_RESOURCE_NAME_PREFIX}"
         region: ${AWS_DEFAULT_REGION}
