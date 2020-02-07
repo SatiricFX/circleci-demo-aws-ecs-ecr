@@ -36,11 +36,11 @@ workflows:
   build_and_apply:
     jobs:
       - aws-ecr/build-and-push-image:
-        account-url: "AWS_ECR_URL"
-        repo: "${AWS_RESOURCE_NAME_PREFIX}"
-        region: "AWS_DEFAULT_REGION"
-        tag: "latest"
-        create-repo: true
+          account-url: "AWS_ECR_URL"
+          repo: "${AWS_RESOURCE_NAME_PREFIX}"
+          region: "AWS_DEFAULT_REGION"
+          tag: "latest"
+          create-repo: true
       - plan:
           requires: 
             - aws-ecr/build-and-push-image
