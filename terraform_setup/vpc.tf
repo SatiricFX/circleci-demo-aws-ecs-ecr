@@ -1,8 +1,8 @@
-resource "aws_vpc" "${var.aws_resource_prefix}_vpc" {
+resource "aws_vpc" "cwvlug_vpc" {
   cidr_block = "${var.aws_vpc_cidr_block}"
 
   tags = {
-    Name ="${var.aws_resource_prefix}_VPC"
+    Name ="cwvlug_vpc"
   }
 }
 
@@ -10,7 +10,7 @@ resource "aws_internet_gateway" "cwvlug_ig" {
   vpc_id = "${aws_vpc.cwvlug_vpc.id}"
 
   tags = {
-    Name = "CWVLug_IG"
+    Name = "cwvlug_ig"
   }
 }
 
@@ -22,7 +22,7 @@ resource "aws_subnet" "cwvlug_public_sn_01" {
   availability_zone = "${data.aws_availability_zones.available.names[0]}"
   
   tags = {
-    Name = "CWVLug_Public_SN"
+    Name = "cwvlug_public_subnet"
   }
 }
 
@@ -34,12 +34,12 @@ resource "aws_route_table" "cwvlug_public_sn_rt_01" {
   }
   
   tags = {
-    Name = "CWVLug_Public_SN_RT"
+    Name = "cwvlug_public_sn_rt"
   }
 }
 
 # Associate the routing table to public subnet 1
-resource "aws_route_table_association" "public_sn_rt_01_assn" {
+resource "aws_route_table_association" "cwvlug_public_sn_rt_01_assn" {
   subnet_id = "${aws_subnet.cwvlug_public_sn_01.id}"
   route_table_id = "${aws_route_table.cwvlug_public_sn_rt_01.id}"
 }
@@ -50,7 +50,7 @@ resource "aws_subnet" "cwvlug_public_sn_02" {
   availability_zone = "${data.aws_availability_zones.available.names[1]}"
   
   tags = {
-    Name = "CWVLug_Public_SN"
+    Name = "cwvlug_public_sn"
   }
 }
 
@@ -62,7 +62,7 @@ resource "aws_route_table" "cwvlug_public_sn_rt_02" {
   }
   
   tags = {
-    Name = "CWVLug_Public_SN_RT"
+    Name = "cwvlug_public_sn_rt"
   }
 }
 
