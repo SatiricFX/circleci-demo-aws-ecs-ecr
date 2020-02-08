@@ -1,8 +1,8 @@
-resource "aws_vpc" "cwvlug_vpc" {
+resource "aws_vpc" "${aws_resource_prefix}_vpc" {
   cidr_block = "${var.aws_vpc_cidr_block}"
 
   tags = {
-    Name ="CWVLug_VPC"
+    Name ="${aws_resource_prefix}_VPC"
   }
 }
 
