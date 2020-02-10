@@ -6,7 +6,7 @@ data "aws_ecs_task_definition" "cwvlug_ecs_task_definition" {
   task_definition = "${aws_ecs_task_definition.cwvlug_ecs_task_definition.family}"
 }
 
-resource "aws_ecs_task_definition" "cwvlug_task_definition" {
+resource "aws_ecs_task_definition" "cwvlug_ecs_task_definition" {
     family                = "cwvlug_task_definition"
     container_definitions = <<DEFINITION
 [
@@ -31,7 +31,7 @@ resource "aws_ecs_service" "cwvlug-ecs-service" {
   	name            = "cwvlug-ecs-service"
   	iam_role        = "${aws_iam_role.cwvlug-ecs-service-role.name}"
   	cluster         = "${aws_ecs_cluster.cwvlug-ecs-cluster.id}"
-    task_definition = "${aws_ecs_task_definition.ecs_task_definition.arn}"
+    task_definition = "${aws_ecs_task_definition.cwvlug_ecs_task_definition.arn}"
   	desired_count   = 2
 
   	load_balancer {
