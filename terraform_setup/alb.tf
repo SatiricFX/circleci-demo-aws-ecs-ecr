@@ -4,7 +4,7 @@ resource "aws_alb" "cwvlug-ecs-load-balancer" {
     subnets             = ["${aws_subnet.cwvlug_public_sn_01.id}", "${aws_subnet.cwvlug_public_sn_02.id}"]
 
     tags {
-      Name = "${var.aws_resource_prefix}-ecs-load-balancer"
+      Name = "cwvlug-ecs-load-balancer"
     }
 }
 
