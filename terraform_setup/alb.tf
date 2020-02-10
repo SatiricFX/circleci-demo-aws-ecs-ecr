@@ -1,6 +1,6 @@
 resource "aws_alb" "cwvlug-ecs-load-balancer" {
     name                = "cwvlug-ecs-load-balancer"
-    security_groups     = ["${aws_security_group."cwvlug_public_sg.id}"]
+    security_groups     = ["${aws_security_group.cwvlug_public_sg.id}"]
     subnets             = ["${aws_subnet.cwvlug_public_sn_01.id}", "${aws_subnet.cwvlug_public_sn_02.id}"]
 
     tags {
