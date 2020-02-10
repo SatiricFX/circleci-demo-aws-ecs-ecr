@@ -7,7 +7,7 @@ data "aws_ecs_task_definition" "cwvlug_ecs_task_definition" {
 }
 
 resource "aws_ecs_task_definition" "cwvlug_ecs_task_definition" {
-    family                = "cwvlug_task_definition"
+    family                = "cwvlug_ecs_task_definition"
     container_definitions = <<DEFINITION
 [
   {
