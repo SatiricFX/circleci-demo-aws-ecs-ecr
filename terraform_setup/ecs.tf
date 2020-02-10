@@ -2,10 +2,6 @@ resource "aws_ecs_cluster" "cwvlug-ecs-cluster" {
     name = "cwvlug_ecs_cluster"
 }
 
-data "aws_ecs_task_definition" "cwvlug_task_definition" {
-  task_definition = "${aws_ecs_task_definition.cwvlug_task_definition.family}"
-}
-
 resource "aws_ecs_task_definition" "cwvlug_task_definition" {
     family                = "cwvlug_task_definition"
     container_definitions = <<DEFINITION
@@ -25,6 +21,10 @@ resource "aws_ecs_task_definition" "cwvlug_task_definition" {
   }
 ]
 DEFINITION
+}
+
+data "aws_ecs_task_definition" "cwvlug_task_definition" {
+  task_definition = "${aws_ecs_task_definition.cwvlug_task_definition.family}"
 }
 
 resource "aws_ecs_service" "cwvlug-ecs-service" {
