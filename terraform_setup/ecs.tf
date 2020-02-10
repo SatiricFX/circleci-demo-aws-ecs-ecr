@@ -11,17 +11,18 @@ resource "aws_ecs_task_definition" "cwvlug_task_definition" {
     container_definitions = <<DEFINITION
 [
   {
-    "name": "cwvlug",
+    "name": "cwvlug_circleci_demo",
+    "image": "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/cwvlug-circleci-demo:latest",
     "essential": true,
+    "memory": 500,
+    "cpu": 10,
     "portMappings": [
       {
         "containerPort": 80,
         "hostPort": 80
       }
-    ],
-    "memory": 256,
-    "cpu": 1
-  },
+    ]
+  }
 ]
 DEFINITION
 }
