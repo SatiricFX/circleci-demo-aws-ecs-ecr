@@ -1,5 +1,5 @@
 resource "aws_alb" "cwvlug-ecs-load-balancer" {
-    name                = "${var.aws_resource_prefix}-ecs-load-balancer"
+    name                = "cwvlug-ecs-load-balancer"
     security_groups     = ["${aws_security_group."cwvlug_public_sg.id}"]
     subnets             = ["${aws_subnet.cwvlug_public_sn_01.id}", "${aws_subnet.cwvlug_public_sn_02.id}"]
 
@@ -9,10 +9,10 @@ resource "aws_alb" "cwvlug-ecs-load-balancer" {
 }
 
 resource "aws_alb_target_group" "cwvlug-ecs-target-group" {
-    name                = "$aws_resource_prefix_}-ecs-target-group"
+    name                = "cwvlug-ecs-target-group"
     port                = "80"
     protocol            = "HTTP"
-    vpc_id              = "${aws_vpc.${aws_resource_prefix}_vpc.id}"
+    vpc_id              = "${aws_vpc.cwvlug_vpc.id}"
 
     health_check {
         healthy_threshold   = "5"
@@ -26,7 +26,7 @@ resource "aws_alb_target_group" "cwvlug-ecs-target-group" {
     }
 
     tags {
-      Name = "${var.aws_resource_prefix}ecs-target-group"
+      Name = "cwvlug-ecs-target-group"
     }
 }
 
