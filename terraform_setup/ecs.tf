@@ -12,7 +12,6 @@ resource "aws_ecs_task_definition" "cwvlug_task_definition" {
 [
   {
     "name": "cwvlug_circleci_demo",
-    "image": "${var.aws_account_id}.dkr.ecr.${var.aws_region}.amazonaws.com/cwvlug-circleci-demo:latest",
     "essential": true,
     "memory": 500,
     "cpu": 10,
