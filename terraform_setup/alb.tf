@@ -3,7 +3,7 @@ resource "aws_alb" "cwvlug-ecs-load-balancer" {
     security_groups     = ["${aws_security_group.cwvlug_public_sg.id}"]
     subnets             = ["${aws_subnet.cwvlug_public_sn_01.id}", "${aws_subnet.cwvlug_public_sn_02.id}"]
 
-    tags {
+    tags = {
       Name = "cwvlug-ecs-load-balancer"
     }
 }
@@ -25,7 +25,7 @@ resource "aws_alb_target_group" "cwvlug-ecs-target-group" {
         timeout             = "5"
     }
 
-    tags {
+    tags = {
       Name = "cwvlug-ecs-target-group"
     }
 }

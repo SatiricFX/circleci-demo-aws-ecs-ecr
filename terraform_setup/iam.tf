@@ -1,7 +1,7 @@
 resource "aws_iam_role" "cwvlug-ecs-service-role" {
     name                = "${var.aws_resource_prefix}-ecs-service-role"
     path                = "/"
-    assume_role_policy  = "${data.aws_iam_policy_document.ecs-service-policy.json}"
+    assume_role_policy  = "${data.aws_iam_policy_document.cwvlug-ecs-service-policy.json}"
 }
 
 resource "aws_iam_role_policy_attachment" "cwvlug-ecs-service-role-attachment" {
@@ -21,9 +21,9 @@ data "aws_iam_policy_document" "cwvlug-ecs-service-policy" {
 }
 
 resource "aws_iam_role" "cwvlug-ecs-instance-role" {
-    name                = "${var.aws_resource_prefix}-ecs-instance-role"
+    name                = "cwvlug-ecs-instance-role"
     path                = "/"
-    assume_role_policy  = "${data.aws_iam_policy_document.ecs-instance-policy.json}"
+    assume_role_policy  = "${data.aws_iam_policy_document.cwvlug-ecs-instance-policy.json}"
 }
 
 data "aws_iam_policy_document" "cwvlug-ecs-instance-policy" {
@@ -43,7 +43,7 @@ resource "aws_iam_role_policy_attachment" "cwvlug-ecs-instance-role-attachment" 
 }
 
 resource "aws_iam_instance_profile" "cwvlug-ecs-instance-profile" {
-    name = "${var.aws_resource_prefix}-ecs-instance-profile"
+    name = "cwvlug-ecs-instance-profile"
     path = "/"
     roles = ["${aws_iam_role.cwvlug-ecs-instance-role.id}"]
     provisioner "local-exec" {
