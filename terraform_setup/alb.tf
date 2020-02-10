@@ -31,12 +31,12 @@ resource "aws_alb_target_group" "cwvlug-ecs-target-group" {
 }
 
 resource "aws_alb_listener" "cwvlug-alb-listener" {
-    load_balancer_arn = "${aws_alb.${var.aws_resource_prefix}-ecs-load-balancer.arn}"
+    load_balancer_arn = "${aws_alb.cwvlug-ecs-load-balancer.arn}"
     port              = "80"
     protocol          = "HTTP"
 
     default_action {
-        target_group_arn = "${aws_alb_target_group.${var.aws_resource_pefix}-ecs-target-group.arn}"
+        target_group_arn = "${aws_alb_target_group.cwvlug-ecs-target-group.arn}"
         type             = "forward"
     }
 }
