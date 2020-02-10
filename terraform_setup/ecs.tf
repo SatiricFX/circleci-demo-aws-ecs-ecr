@@ -23,10 +23,6 @@ resource "aws_ecs_task_definition" "cwvlug_task_definition" {
 DEFINITION
 }
 
-data "aws_ecs_task_definition" "cwvlug_task_definition" {
-  task_definition = "${aws_ecs_task_definition.cwvlug_task_definition.family}"
-}
-
 resource "aws_ecs_service" "cwvlug-ecs-service" {
   	name            = "cwvlug-ecs-service"
   	iam_role        = "${aws_iam_role.cwvlug-ecs-service-role.name}"
