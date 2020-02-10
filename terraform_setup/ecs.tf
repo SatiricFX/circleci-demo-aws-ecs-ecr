@@ -2,10 +2,6 @@ resource "aws_ecs_cluster" "cwvlug-ecs-cluster" {
     name = "cwvlug_ecs_cluster"
 }
 
-data "aws_ecs_task_definition" "cwvlug_task_definition" {
-  task_definition = "${aws_ecs_task_definition.cwvlug_task_definition.family}"
-}
-
 data "aws_ecs_task_definition" "ecs_task_definition" {
   task_definition = "${aws_ecs_task_definition.ecs_task_definition.family}"
 }
@@ -33,14 +29,14 @@ DEFINITION
 
 resource "aws_ecs_service" "ecs-service" {
   name            = "ecs-service"
-  iam_role        = "${aws_iam_role.ecs-service-role.name}"
-  cluster         = "${aws_ecs_cluster.ecs-cluster.id}"
+  iam_role        = "${aws_iam_role.cwvlug-ecs-service-role.name}"
+  cluster         = "${aws_ecs_cluster.cwvlug-ecs-cluster.id}"
   task_definition = "${aws_ecs_task_definition.ecs_task_definition.arn}"
   desired_count   = 1
   launch_type     = "EC2"
 
   load_balancer {
-   	target_group_arn  = "${aws_alb_target_group.ecs-target-group.arn}"
+   	target_group_arn  = "${aws_alb_target_group.cwvlug-ecs-target-group.arn}"
    	container_port    = 80
    	container_name    = "cwvlug_circleci_demo"
 	}
