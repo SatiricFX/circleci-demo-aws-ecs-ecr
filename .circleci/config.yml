@@ -11,8 +11,14 @@ workflows:
           account-url: "AWS_ECR_URL"
           repo: "${AWS_RESOURCE_NAME_PREFIX}"
           region: "AWS_DEFAULT_REGION"
-          tag: "latest"
+          tag: "${CIRCLE_SHA1}"
           create-repo: true
+      - aws-ecs/deploy-service-update:
+          requires:
+            - aws-ecr/build-and-push-image
+          family: '${AWS_RESOURCE_NAME_PREFIX}-service'
+          cluster-name: '${AWS_RESOURCE_NAME_PREFIX}-cluster'
+          container-image-name-updates: 'container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}'
 
 
 
