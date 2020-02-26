@@ -1,10 +1,5 @@
 # CircleCI Demo: AWS ECS ECR [![CircleCI status](https://circleci.com/gh/CircleCI-Public/circleci-demo-aws-ecs-ecr.svg "CircleCI status")](https://circleci.com/gh/CircleCI-Public/circleci-demo-aws-ecs-ecr)
 
-## Deploy to AWS ECS from ECR via CircleCI 2.0 using Orbs (Example Project)
-This project provides an example of how to use orbs to conveniently build a Docker image on [CircleCI](https://circleci.com), push the Docker image to an Amazon Elastic Container Registry (ECR), and then deploy to Amazon Elastic Container Service (ECS) using AWS Fargate. Specifically, the [aws-ecr](https://circleci.com/orbs/registry/orb/circleci/aws-ecr) and the [aws-ecs](https://circleci.com/orbs/registry/orb/circleci/aws-ecs) Orbs will be used in this project.
-
-A tutorial walkthrough is available for the project at https://circleci.com/docs/2.0/ecs-ecr/
-
 ## Alternative branches
 * [More advanced example with Orbs](https://github.com/CircleCI-Public/circleci-demo-aws-ecs-ecr/tree/orbs)
 * [Without Orbs](https://github.com/CircleCI-Public/circleci-demo-aws-ecs-ecr/tree/without_orbs)
@@ -12,20 +7,12 @@ A tutorial walkthrough is available for the project at https://circleci.com/docs
 ## Prerequisites
 ### Set up required AWS resources
 Builds of this project rely on AWS resources to be present in order to succeed. For convenience, the prerequisite AWS resources may be created using the terraform scripts procided in the `terraform_setup` directory.
-1. Ensure [terraform](https://www.terraform.io/) is installed on your system.
-2. Edit `terraform_setup/terraform.tfvars` to fill in the necessary variable values (an Amazon account with sufficient privileges to create resources like an IAM account, VPC, EC2 instances, Elastic Load Balancer, etc is required). (It is not advisable to commit this file to a public repository after it has been populated with your AWS credentials)
-3. Use terraform to create the AWS resources
-    ```
-    cd terraform_setup
-    terraform init
-    # Review the plan
-    terraform plan
-    # Apply the plan to create the AWS resources
-    terraform apply
-    ```
-4. You can run `terraform destroy` to destroy most of the created AWS resources but in case of lingering undeleted resources, it is recommended to check the [AWS Management Console](https://console.aws.amazon.com/) to see if there are any remaining undeleted resources to avoid unwanted costs. In particular, please check the ECS, CloudFormation and VPC pages.
+1. Create a free [Terraform Cloud](https://app.terraform.io/signup/account) account.
+2. Create a new Workspace in Terraform Cloud and create the below environment variables listed in the table below.
+3. Fork this repo and link your Repo to your new Workspace.
 
-### Configure environment variables on CircleCI
+
+### Configure environment variables on CircleCI and Terraform Cloud
 The following [environment variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) must be set for the project on CircleCI via the project settings page, before the project can be built successfully.
 
 
