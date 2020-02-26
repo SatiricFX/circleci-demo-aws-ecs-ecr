@@ -13,20 +13,6 @@ workflows:
           region: "AWS_DEFAULT_REGION"
           tag: "latest"
           create-repo: true
-      - plan:
-          requires: 
-            - aws-ecr/build-and-push-image
-          filters:
-            branches:
-              only:
-                - develop
-      - apply:
-          requires:
-            - aws-ecr/build-and-push-image
-          filters:
-            branches:
-              only:
-                - master
 
 
 
