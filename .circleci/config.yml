@@ -15,7 +15,7 @@ workflows:
           create-repo: true
       - aws-ecs/deploy-service-update:
           requires:
-            - aws-ecr/build_and_push_image
+            - aws-ecr/build-and-push-image
           aws-region: ${AWS_DEFAULT_REGION}
           family: "cwvlug_circleci_demo"
           cluster-name: "cwvlug_ecs_cluster"
