@@ -16,8 +16,8 @@ workflows:
       - aws-ecs/deploy-service-update:
           requires:
             - aws-ecr/build-and-push-image
-          family: "${AWS_RESOURCE_NAME_PREFIX}-service"
-          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}-cluster"
+          family: "${AWS_RESOURCE_NAME_PREFIX}_circleci_demo"
+          cluster-name: "${AWS_RESOURCE_NAME_PREFIX}_ecs_cluster"
           container-image-name-updates: "container=${AWS_RESOURCE_NAME_PREFIX}-service,tag=${CIRCLE_SHA1}"
           aws-region: AWS_DEFAULT_REGION
 
