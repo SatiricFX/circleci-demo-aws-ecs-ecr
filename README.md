@@ -7,16 +7,34 @@
 ## Prerequisites
 ### Set up required AWS resources
 Builds of this project rely on AWS resources to be present in order to succeed. For convenience, the prerequisite AWS resources may be created using the terraform scripts procided in the `terraform_setup` directory.
-1. Create a free [Terraform Cloud](https://app.terraform.io/signup/account) account.
-2. Create a new Workspace in Terraform Cloud and create the below environment variables listed in the table below.
-3. Fork this repo and link your Repo to your new Workspace.
+1. Create a free [AWS account](https://portal.aws.amazon.com/billing/signup#/start).
+2. Create an AWS user with the below permissions:
+* IAMFullAccess
+* AutoScalingFullAccess
+* ElasticLoadBalancingFullAccess
+* AmazonEC2ContainerRegistryFullAccess
+* AmazonEC2ContainerServiceFullAccess
+* AmazonVPCFullAccess
+3. Create a free [Terraform Cloud](https://app.terraform.io/signup/account) account.
+4. Create a new Workspace in Terraform Cloud and create the below environment variables listed in the table below.
+5. Fork this repo and link your Repo to your new Workspace.
 
 
 ### Configure environment variables on CircleCI and Terraform Cloud
 The following [environment variables](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) must be set for the project on CircleCI via the project settings page, before the project can be built successfully.
 
 
-| Variable                       | Description                                               |
+| Terraform Variable             | Description                                               |
+| ------------------------------ | --------------------------------------------------------- |
+| `aws_account_id`               | Used for ECR location                                     |
+
+| Terraform Environment Variable | Description                                               |
+| ------------------------------ | --------------------------------------------------------- |
+| `AWS_ACCESS_KEY_ID`        | AWS Access Key for Access                                         |
+| `AWS_SECRET_ACCESS_KEY`    | AWS Secret Access Key for Access                                  |
+| `AWS_REGION`               | AWS Region                                                        |
+
+| CircleCI Variable              | Description                                               |
 | ------------------------------ | --------------------------------------------------------- |
 | `AWS_ACCESS_KEY_ID`            | Used by the AWS CLI                                       |
 | `AWS_SECRET_ACCESS_KEY `       | Used by the AWS CLI                                       |
