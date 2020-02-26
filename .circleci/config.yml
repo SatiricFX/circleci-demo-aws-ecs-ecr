@@ -1,3 +1,4 @@
+# Builds Dockerfile, pushes to ECR, and deploys to ECS
 version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.7.0
