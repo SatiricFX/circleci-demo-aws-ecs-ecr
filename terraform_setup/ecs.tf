@@ -36,9 +36,4 @@ resource "aws_ecs_service" "ecs-service" {
   launch_type     = "EC2"
   depends_on      = ["aws_alb_target_group.cwvlug-ecs-target-group","aws_alb.cwvlug-ecs-load-balancer"]
 
-  load_balancer {
-   	target_group_arn  = "${aws_alb_target_group.cwvlug-ecs-target-group.arn}"
-   	container_port    = 80
-   	container_name    = "cwvlug_circleci_demo"
-	}
 }
