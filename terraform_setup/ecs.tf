@@ -34,7 +34,7 @@ resource "aws_ecs_service" "ecs-service" {
   task_definition = "${aws_ecs_task_definition.ecs_task_definition.arn}"
   desired_count   = 1
   launch_type     = "EC2"
-  depends_on      = ["aws_alb_target_group.cwvlug-ecs-target-group]
+  depends_on      = ["aws_alb_target_group.cwvlug-ecs-target-group"]
 
   load_balancer {
    	target_group_arn  = "${aws_alb_target_group.cwvlug-ecs-target-group.arn}"
