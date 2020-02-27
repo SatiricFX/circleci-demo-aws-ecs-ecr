@@ -24,7 +24,7 @@ resource "aws_launch_configuration" "cwvlug-ecs-launch-configuration" {
     key_name                    = "cwvlug-key"
     user_data                   = <<EOF
                                   #!/bin/bash
-                                  echo ECS_CLUSTER=cwvlug_ecs_cluster} >> /etc/ecs/ecs.config
+                                  echo ECS_CLUSTER=cwvlug-ecs-cluster} >> /etc/ecs/ecs.config
                                   EOF
 }
 
