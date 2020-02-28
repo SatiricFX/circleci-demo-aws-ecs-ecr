@@ -24,7 +24,7 @@ resource "aws_autoscaling_group" "cwvlug-ecs-autoscaling-group" {
     min_size                    = "0"
     desired_capacity            = "1"
     vpc_zone_identifier         = ["${aws_subnet.cwvlug_public_sn_01.id}", "${aws_subnet.cwvlug_public_sn_02.id}"]
-    launch_configuration        = "${aws_launch_configuration.cwvlug-ecs-launch-configuration.name}"
+    launch_configuration        = "aws_launch_configuration.cwvlug-ecs-launch-configuration.name"
     health_check_type           = "ELB"
     tags = [
     {
