@@ -1,7 +1,7 @@
 resource "aws_iam_role" "cwvlug-ecs-service-role" {
     name                = "${var.aws_resource_prefix}-ecs-service-role"
     path                = "/"
-    assume_role_policy  = "data.aws_iam_policy_document.cwvlug-ecs-service-policy.json"
+    assume_role_policy  = "${data.aws_iam_policy_document.cwvlug-ecs-service-policy.json}"
 }
 
 resource "aws_iam_role_policy_attachment" "cwvlug-ecs-service-role-attachment" {
