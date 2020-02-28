@@ -18,7 +18,7 @@ workflows:
             - aws-ecr/build-and-push-image
           aws-region: ${AWS_DEFAULT_REGION}
           family: "cwvlug_circleci_demo"
-          cluster-name: "cwvlug_ecs_cluster"
+          cluster-name: "default"
           container-image-name-updates: "container=cwvlug_circleci_demo,image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/cwvlug-circleci-demo:${CIRCLE_SHA1}"
           verify-revision-is-deployed: true
           service-name: "ecs-service"
