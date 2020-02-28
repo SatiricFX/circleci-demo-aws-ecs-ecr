@@ -33,7 +33,7 @@ resource "aws_autoscaling_group" "cwvlug-ecs-autoscaling-group" {
     tags = [
     {
       key                 = "Name"
-      value               = "cwvlug-ecs-cluster",
+      value               = "ECS Instance - EC2ContainerService-cwvlug-ecs-cluster",
 
       propagate_at_launch = true
     }
