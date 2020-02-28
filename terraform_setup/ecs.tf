@@ -1,7 +1,3 @@
-resource "aws_ecs_cluster" "cwvlug-ecs-cluster" {
-    name = "cwvlug_ecs_cluster"
-}
-
 data "aws_ecs_task_definition" "ecs_task_definition" {
   task_definition = "${aws_ecs_task_definition.ecs_task_definition.family}"
 }
@@ -32,6 +28,4 @@ resource "aws_ecs_service" "ecs-service" {
   task_definition = "${aws_ecs_task_definition.ecs_task_definition.arn}"
   desired_count   = 1
   launch_type     = "EC2"
-  depends_on      = ["aws_alb_target_group.cwvlug-ecs-target-group","aws_alb.cwvlug-ecs-load-balancer"]
-
 }
