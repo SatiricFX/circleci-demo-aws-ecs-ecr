@@ -16,10 +16,6 @@ resource "aws_launch_configuration" "cwvlug-ecs-launch-configuration" {
 
     security_groups             = ["${aws_security_group.cwvlug_public_sg.id}"]
     associate_public_ip_address = "true"
-    user_data                   = <<EOF
-                                  #!/bin/bash
-                                  echo ECS_CLUSTER=cwvlug-ecs-cluster >> /etc/ecs/ecs.config
-                                  EOF
 }
 
 resource "aws_autoscaling_group" "cwvlug-ecs-autoscaling-group" {
