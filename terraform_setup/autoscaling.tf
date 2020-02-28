@@ -2,7 +2,7 @@ resource "aws_launch_configuration" "cwvlug-ecs-launch-configuration" {
     name                        = "cwvlug-ecs-launch-configuration"
     image_id                    = "ami-098616968d61e549e"
     instance_type               = "t2.micro"
-    iam_instance_profile        = "${aws_iam_instance_profile.cwvlug-ecs-instance-profile.id}"
+    iam_instance_profile        = "aws_iam_instance_profile.cwvlug-ecs-instance-profile.id"
 
     root_block_device {
       volume_type = "standard"
