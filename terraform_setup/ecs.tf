@@ -1,3 +1,7 @@
+resource "aws_ecs_cluster" "default" {
+  name = "default"
+}
+
 data "aws_ecs_task_definition" "ecs_task_definition" {
   task_definition = "${aws_ecs_task_definition.ecs_task_definition.family}"
 }
