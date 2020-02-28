@@ -45,7 +45,7 @@ resource "aws_iam_role_policy_attachment" "cwvlug-ecs-instance-role-attachment" 
 resource "aws_iam_instance_profile" "cwvlug-ecs-instance-profile" {
     name = "cwvlug-ecs-instance-profile"
     path = "/"
-    role = ["${aws_iam_role.cwvlug-ecs-instance-role.id}"]
+    role = "${aws_iam_role.cwvlug-ecs-instance-role.id}"
     provisioner "local-exec" {
       command = "sleep 10"
     }
