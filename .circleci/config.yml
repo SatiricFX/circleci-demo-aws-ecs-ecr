@@ -1,5 +1,5 @@
 # Builds Dockerfile, pushes to ECR, and deploys to ECS
-# CWVLug Demo
+# CWVLug Demo Real
 version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.7.0
