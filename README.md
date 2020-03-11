@@ -1,14 +1,12 @@
-# CircleCI Demo: AWS ECS ECR [![CircleCI status](https://circleci.com/gh/CircleCI-Public/circleci-demo-aws-ecs-ecr.svg "CircleCI status")](https://circleci.com/gh/CircleCI-Public/circleci-demo-aws-ecs-ecr)
-
-## Alternative branches
-* [More advanced example with Orbs](https://github.com/CircleCI-Public/circleci-demo-aws-ecs-ecr/tree/orbs)
-* [Without Orbs](https://github.com/CircleCI-Public/circleci-demo-aws-ecs-ecr/tree/without_orbs)
+# Terraform and CircleCI Demo
 
 ## Prerequisites
 ### Set up required AWS resources
-Builds of this project rely on AWS resources to be present in order to succeed. For convenience, the prerequisite AWS resources may be created using the terraform scripts procided in the `terraform_setup` directory.
+Builds of this project rely on AWS resources to be present in order to succeed. The resources can be created using Terraform Cloud.
+
 1. Create a free [AWS account](https://portal.aws.amazon.com/billing/signup#/start).
 2. Create an AWS user with the below permissions:
+* AmazonEC2FullAccess
 * IAMFullAccess
 * AutoScalingFullAccess
 * ElasticLoadBalancingFullAccess
@@ -16,7 +14,7 @@ Builds of this project rely on AWS resources to be present in order to succeed. 
 * AmazonEC2ContainerServiceFullAccess
 * AmazonVPCFullAccess
 3. Create a free [Terraform Cloud](https://app.terraform.io/signup/account) account.
-4. Create a new Workspace in Terraform Cloud and create the below environment variables listed in the table below.
+4. Create a new Workspace in Terraform Cloud and create the environment variables listed in the table below.
 5. Fork this repo and link your Repo to your new Workspace.
 
 
